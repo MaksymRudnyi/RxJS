@@ -10,6 +10,7 @@
 <body>
 <button id="btn">Click me: Vanila</button>
 <button id="btn-rxjs">Click me: RxJS</button>
+<button id="btn-create">Click me: Create</button>
 <script src="https://npmcdn.com/@reactivex/rxjs@5.0.0-beta.3/dist/global/Rx.umd.js"></script>
 <script>
     const btn = document.querySelector('#btn');
@@ -27,6 +28,17 @@
       .throttleTime(1000)
       .map(e => e.clientY)
       .subscribe(observer);
+
+    const btnCreate = document.querySelector('#btn-create');
+
+    Rx.Observable.create(obs => {
+        obs.next('VAl');
+        obs.next('next val');
+      btnCreate.onclick = event => {
+        obs.next('click: ' + event.clientX);
+      }
+    }).subscribe(observer);
+
 </script>
 </body>
 </html>
