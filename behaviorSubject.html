@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<button id="btn">Click me</button>
+<div></div>
+<script src="https://npmcdn.com/@reactivex/rxjs@5.0.0-beta.3/dist/global/Rx.umd.js"></script>
+<script>
+
+    const subject = new Rx.BehaviorSubject('no clicked');
+    const btn = document.querySelector('#btn');
+    const div = document.querySelector('div');
+
+    btn.addEventListener('click', () => subject.next('Clicked!'));
+
+    subject.subscribe({
+      next: val => div.textContent = val,
+      error: err => console.log('err1: ', err),
+      complete: () => console.log('Complete')
+    });
+
+</script>
+</body>
+</html>
